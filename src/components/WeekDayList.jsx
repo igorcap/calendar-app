@@ -8,10 +8,23 @@ const Day = styled.th`
   padding: 10px;
   background-color: #005c69;
   color: white;
+  width: 100px;
+  justify-content: center;
+  line-height: 35px;
+`;
+
+const List = styled.tr`
+  display: flex;
 `;
 
 const WeekDayList = () => {
-  return moment.weekdays().map((day) => <Day key={day}>{day}</Day>);
+  return (
+    <List>
+      {moment.weekdays().map((day) => (
+        <Day key={day}>{day}</Day>
+      ))}
+    </List>
+  );
 };
 
 export default WeekDayList;

@@ -1,34 +1,42 @@
 import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
-import * as calendar from "../store/modules/calendar";
+// import * as calendar from "../store/modules/calendar";
 
 import WeekDayList from "../components/WeekDayList";
+import MonthDayList from "../components/MonthDayList";
 
 const Container = styled.div`
-  display: flex;
+  width: 100%;
 `;
 
-const Calendar = ({ currentDate }) => {
+const Table = styled.table`
+  display: block;
+`;
+
+const Calendar = () => {
   return (
     <Container>
-      <WeekDayList />
+      <Table>
+        <thead>
+          <WeekDayList />
+        </thead>
+        <tbody>
+          <MonthDayList />
+        </tbody>
+      </Table>
     </Container>
   );
 };
 
-Calendar.propTypes = {
-  currentDate: PropTypes.object.isRequired,
-};
+Calendar.propTypes = {};
 
 const mapDispatchToProps = {};
 
-const mapStateToProps = createStructuredSelector({
-  currentDate: calendar.selectors.currentDate,
-});
+const mapStateToProps = createStructuredSelector({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

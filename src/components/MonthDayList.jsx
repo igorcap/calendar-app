@@ -7,11 +7,11 @@ import * as calendar from "../store/modules/calendar";
 
 const Day = styled.td`
   display: flex;
-  width: 100px;
-  justify-content: center;
   color: #f98909;
   padding: 10px;
-  background-color: transparentize(white, 0.3);
+  background-color: white;
+  font-weight: 800;
+  opacity: 0.7;
   box-shadow: -1px -1px #f9a440, inset -1px -1px 0 0 #f9a440;
   flex-grow: 1;
   flex-shrink: 1;
@@ -20,6 +20,7 @@ const Day = styled.td`
 
 const List = styled.tr`
   display: flex;
+  height: 120px;
 `;
 
 const MonthDayList = ({ firstDayOfMonth, daysInMonth }) => {
@@ -54,8 +55,11 @@ const MonthDayList = ({ firstDayOfMonth, daysInMonth }) => {
   }
 
   const days = daysRow.map((day, i) => {
-    // eslint-disable-next-line react/no-array-index-key
-    return <List key={`list-body-calendar-${i}`}>{day}</List>;
+    if (day.length > 0) {
+      // eslint-disable-next-line react/no-array-index-key
+      return <List key={`list-body-calendar-${i}`}>{day}</List>;
+    }
+    return false;
   });
 
   return days;

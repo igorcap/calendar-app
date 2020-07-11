@@ -6,8 +6,11 @@ import moment from "moment";
 const Day = styled.th`
   display: flex;
   padding: 10px;
-  background-color: #005c69;
-  color: white;
+  background-color: #fff;
+  font-weight: 800;
+  opacity: 0.7;
+  box-shadow: -1px -1px #f9a440, inset -1px -1px 0 0 #f9a440;
+  color: #f98909;
   width: 100px;
   justify-content: center;
   line-height: 35px;

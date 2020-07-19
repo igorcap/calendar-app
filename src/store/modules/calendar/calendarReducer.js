@@ -8,6 +8,7 @@ const initialState = fromJS({
   reminders: fromJS({}),
   selectedDate: "",
   selectedTime: "",
+  currentCity: fromJS({}),
 });
 
 const calendar = (state = initialState, action) => {
@@ -32,8 +33,9 @@ const calendar = (state = initialState, action) => {
       );
     }
     case actions.REQUEST_WEATHER.SUCCEEDED: {
-      console.log('aqui', action);
-      return state.set("currentCity", action.data);
+      return state.merge({
+        currentCity: action.payload.data,
+      });
     }
     case actions.OPEN_REMINDER_EDIT:
       return state.set("popupIsOpen", true);

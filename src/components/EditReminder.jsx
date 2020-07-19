@@ -45,6 +45,7 @@ const EditReminder = ({
   const changeColor = (value) => {
     setColor(value.hex);
   };
+  console.log("cityWeather", cityWeather);
 
   return (
     <Container>
@@ -83,7 +84,12 @@ const EditReminder = ({
             })}
             defaultValue={city}
           />
-          {errors.city}
+          <p>
+            {"Temperature: "}
+            {cityWeather && cityWeather.main
+              ? `${cityWeather.main.temp} celsius`
+              : "Not found"}
+          </p>
         </Block>
         <Block>
           <label>Color:</label>
@@ -109,6 +115,7 @@ EditReminder.propTypes = {
   editReminder: PropTypes.func,
   closePopup: PropTypes.func,
   selectedReminder: PropTypes.object,
+  cityWeather: PropTypes.object,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditReminder);

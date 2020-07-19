@@ -1,13 +1,16 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { SketchPicker } from "react-color";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import PropTypes from "prop-types";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 
-import { createReminder } from "../store/modules/calendar/calendarActions";
+import * as calendar from "../store/modules/calendar";
 
 const Container = styled.div`
   display: flex;
@@ -23,14 +26,20 @@ const Block = styled.div`
   flex-direction: column;
 `;
 
-const NewReminder = () => {
-  const dispatch = useDispatch();
+const EditReminder = ({
+  editReminder,
+  selectedReminder,
+  closePopup,
+  cityWeather,
+}) => {
+  const { reminder, date, city, color } = selectedReminder.toJS();
   const { handleSubmit, register, errors } = useForm();
-  const [date, setDate] = useState(new Date());
-  const [color, setColor] = useState("#fff");
+  const [stateDate, setDate] = useState(date);
+  const [colorState, setColor] = useState(color);
 
   const onSubmit = (values) => {
-    dispatch(createReminder({ ...values, date, color }));
+    editReminder({ ...values, date: stateDate, color: colorState });
+    closePopup();
   };
 
   const changeColor = (value) => {
@@ -39,7 +48,7 @@ const NewReminder = () => {
 
   return (
     <Container>
-      <Title>New Reminder</Title>
+      <Title>Edit Reminder</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Block>
           <label>Reminder:</label>
@@ -48,13 +57,14 @@ const NewReminder = () => {
             ref={register({
               required: "Required",
             })}
+            defaultValue={reminder}
           />
           {errors.reminder && errors.reminder.message}
         </Block>
         <Block>
           <label>Date and Time:</label>
           <DatePicker
-            selected={date}
+            selected={stateDate}
             onChange={(pickerDate) => setDate(pickerDate)}
             showTimeSelect
             timeFormat="HH:mm"
@@ -71,12 +81,13 @@ const NewReminder = () => {
             ref={register({
               required: "Required",
             })}
+            defaultValue={city}
           />
-          {errors.city && errors.city.message}
+          {errors.city}
         </Block>
         <Block>
           <label>Color:</label>
-          <SketchPicker color={color} onChangeComplete={changeColor} />
+          <SketchPicker color={colorState} onChangeComplete={changeColor} />
         </Block>
         <button type="submit">Submit</button>
       </form>
@@ -84,4 +95,20 @@ const NewReminder = () => {
   );
 };
 
-export default NewReminder;
+const mapDispatchToProps = {
+  editReminder: calendar.actions.createReminder,
+  closePopup: calendar.actions.closeReminderEdit,
+};
+
+const mapStateToProps = createStructuredSelector({
+  selectedReminder: calendar.selectors.getSelectedReminder,
+  cityWeather: calendar.selectors.getCurrentCityWeather,
+});
+
+EditReminder.propTypes = {
+  editReminder: PropTypes.func,
+  closePopup: PropTypes.func,
+  selectedReminder: PropTypes.object,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditReminder);

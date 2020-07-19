@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
     /* Safari, Android, iOS */
       url("../fonts/open-sans-v13-latin-regular.svg#OpenSans") format("svg"); /* Legacy iOS */
   padding: 100px;
+  padding-left: 50px;
   margin: 20px auto;
   background: #f76d1d; /* fallback for old browsers */
   background: -webkit-linear-gradient(

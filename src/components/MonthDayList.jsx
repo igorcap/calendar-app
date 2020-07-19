@@ -12,14 +12,14 @@ const List = styled.tr`
   height: 120px;
 `;
 
-const MonthDayList = ({ firstDayOfMonth, daysInMonth }) => {
+const MonthDayList = ({ firstDayOfMonth, daysInMonth, selectedYear, selectedMonth }) => {
   const blanks = [];
   for (let i = 0; i < firstDayOfMonth; i += 1) {
     blanks.push(<MonthDay key={`empty-${i}`} empty />);
   }
   const listDaysOnMonth = [];
   for (let i = 1; i < daysInMonth; i += 1) {
-    listDaysOnMonth.push(<MonthDay key={i}>{i}</MonthDay>);
+    listDaysOnMonth.push(<MonthDay dateString={`${i}-${selectedMonth}-${selectedYear}`} key={i}>{i}</MonthDay>);
   }
 
   const daysList = [...blanks, ...listDaysOnMonth];
@@ -61,6 +61,8 @@ const mapDispatchToProps = {};
 const mapStateToProps = createStructuredSelector({
   firstDayOfMonth: calendar.selectors.firstDayOfMonth,
   daysInMonth: calendar.selectors.daysInMonth,
+  selectedMonth: calendar.selectors.selectedMonth,
+  selectedYear: calendar.selectors.selectedYear,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MonthDayList);

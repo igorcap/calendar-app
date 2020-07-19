@@ -9,6 +9,11 @@ import { connect } from "react-redux";
 
 import WeekDayList from "../components/WeekDayList";
 import MonthDayList from "../components/MonthDayList";
+import NewReminder from "../components/NewReminder";
+
+const Container = styled.div`
+  display: flex;
+`;
 
 const Table = styled.table`
   display: block;
@@ -16,14 +21,17 @@ const Table = styled.table`
 
 const Calendar = () => {
   return (
-    <Table>
-      <thead>
-        <WeekDayList />
-      </thead>
-      <tbody>
-        <MonthDayList />
-      </tbody>
-    </Table>
+    <Container>
+      <NewReminder />
+      <Table>
+        <thead>
+          <WeekDayList />
+        </thead>
+        <tbody>
+          <MonthDayList />
+        </tbody>
+      </Table>
+    </Container>
   );
 };
 

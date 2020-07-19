@@ -4,19 +4,8 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
 import * as calendar from "../store/modules/calendar";
+import MonthDay from './MonthDay';
 
-const Day = styled.td`
-  display: flex;
-  color: #f98909;
-  padding: 10px;
-  background-color: white;
-  font-weight: 800;
-  opacity: 0.7;
-  box-shadow: -1px -1px #f9a440, inset -1px -1px 0 0 #f9a440;
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 0;
-`;
 
 const List = styled.tr`
   display: flex;
@@ -26,11 +15,11 @@ const List = styled.tr`
 const MonthDayList = ({ firstDayOfMonth, daysInMonth }) => {
   const blanks = [];
   for (let i = 0; i < firstDayOfMonth; i += 1) {
-    blanks.push(<Day key={`empty-${i}`} empty />);
+    blanks.push(<MonthDay key={`empty-${i}`} empty />);
   }
   const listDaysOnMonth = [];
   for (let i = 1; i < daysInMonth; i += 1) {
-    listDaysOnMonth.push(<Day key={i}>{i}</Day>);
+    listDaysOnMonth.push(<MonthDay key={i}>{i}</MonthDay>);
   }
 
   const daysList = [...blanks, ...listDaysOnMonth];
@@ -51,7 +40,9 @@ const MonthDayList = ({ firstDayOfMonth, daysInMonth }) => {
   });
 
   while (daysRow[daysRow.length - 1].length < 7) {
-    daysRow[daysRow.length - 1].push(<Day key="empty-fill" empty />);
+    daysRow[daysRow.length - 1].push(
+      <MonthDay key={`empty-fill-${Math.random()}`} empty />
+    );
   }
 
   const days = daysRow.map((day, i) => {

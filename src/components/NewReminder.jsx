@@ -13,9 +13,17 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 30px;
+  font-weight: 800;
+  background-color: #fff;
+  box-shadow: -1px -1px #f9a440, inset -1px -1px 0 0 #f9a440;
+  color: #f98909;
+  justify-content: center;
+  line-height: 35px;
 `;
 
-const Title = styled.h3``;
+const Title = styled.h3`
+  margin-top: 0;
+`;
 
 const Block = styled.div`
   display: flex;

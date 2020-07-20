@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import React from "react";
 import ReactDOM from "react-dom";
+import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 import App from "../App";
 
@@ -23,13 +24,16 @@ it("renders without crashing", () => {
   ReactDOM.render(<App />, div);
 });
 
-it("should be able to create new reminder", () => {
-  const wrapper = mount(<App />);
-  wrapper
-    .find(".new-reminder__textarea")
-    .simulate("change", { target: { value: "my new reminder" } });
-  wrapper
-    .find(".new-reminder__city")
-    .simulate("change", { target: { value: "Fortaleza" } });
-  wrapper.find(".submit-new-reminder").simulate("click");
+it("should be able to create new reminder", async () => {
+  await act(async () => {
+    const wrapper = mount(<App />);
+    wrapper
+      .find(".new-reminder__textarea")
+      .simulate("change", { target: { value: "my new reminder" } });
+    wrapper
+      .find(".new-reminder__city")
+      .simulate("change", { target: { value: "Fortaleza" } });
+    wrapper.find("form").simulate("submit", { preventDefault() {} });
+    expect(wrapper.find(".reminder")).toBeTruthy();
+  });
 });

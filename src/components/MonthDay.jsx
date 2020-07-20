@@ -59,10 +59,10 @@ const MonthDay = ({
     requestWeatherRequestAction({ city });
     openReminderEditAction();
   };
-
   dayReminders.forEach((reminder, index) =>
     listReminders.push(
       <Reminder
+        className="reminder"
         onDoubleClick={changeSelectedReminder(index, reminder.get("city"))}
         key={reminder.get("reminder")}
         color={reminder.get("color")}

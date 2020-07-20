@@ -42,8 +42,9 @@ const NewReminder = () => {
       <Title>New Reminder</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Block>
-          <label>Reminder:</label>
+          Reminder:
           <textarea
+            className="new-reminder__textarea"
             name="reminder"
             ref={register({
               required: "Required",
@@ -52,7 +53,7 @@ const NewReminder = () => {
           {errors.reminder && errors.reminder.message}
         </Block>
         <Block>
-          <label>Date and Time:</label>
+          Date and Time:
           <DatePicker
             selected={date}
             onChange={(pickerDate) => setDate(pickerDate)}
@@ -65,9 +66,10 @@ const NewReminder = () => {
           {errors.date && errors.date.message}
         </Block>
         <Block>
-          <label>City:</label>
+          City:
           <input
             name="city"
+            className="new-reminder__city"
             ref={register({
               required: "Required",
             })}
@@ -75,10 +77,12 @@ const NewReminder = () => {
           {errors.city && errors.city.message}
         </Block>
         <Block>
-          <label>Color:</label>
+          Color:
           <SketchPicker color={color} onChangeComplete={changeColor} />
         </Block>
-        <button type="submit">Submit</button>
+        <button className="submit-new-reminder" type="submit">
+          Submit
+        </button>
       </form>
     </Container>
   );

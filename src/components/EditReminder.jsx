@@ -45,8 +45,6 @@ const EditReminder = ({
   const changeColor = (value) => {
     setColor(value.hex);
   };
-  console.log("cityWeather", cityWeather);
-
   return (
     <Container>
       <Title>Edit Reminder</Title>

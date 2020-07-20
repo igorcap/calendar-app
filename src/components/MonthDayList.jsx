@@ -4,22 +4,30 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
 import * as calendar from "../store/modules/calendar";
-import MonthDay from './MonthDay';
-
+import MonthDay from "./MonthDay";
 
 const List = styled.tr`
   display: flex;
   height: 120px;
 `;
 
-const MonthDayList = ({ firstDayOfMonth, daysInMonth, selectedYear, selectedMonth }) => {
+const MonthDayList = ({
+  firstDayOfMonth,
+  daysInMonth,
+  selectedYear,
+  selectedMonth,
+}) => {
   const blanks = [];
   for (let i = 0; i < firstDayOfMonth; i += 1) {
     blanks.push(<MonthDay key={`empty-${i}`} empty />);
   }
   const listDaysOnMonth = [];
   for (let i = 1; i < daysInMonth; i += 1) {
-    listDaysOnMonth.push(<MonthDay dateString={`${i}-${selectedMonth}-${selectedYear}`} key={i}>{i}</MonthDay>);
+    listDaysOnMonth.push(
+      <MonthDay dateString={`${i}-${selectedMonth}-${selectedYear}`} key={i}>
+        {i}
+      </MonthDay>
+    );
   }
 
   const daysList = [...blanks, ...listDaysOnMonth];
